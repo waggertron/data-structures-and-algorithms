@@ -7,7 +7,6 @@ import (
 )
 
 // types
-
 type Node struct {
 	Value string
 }
