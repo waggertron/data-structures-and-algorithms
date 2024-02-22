@@ -1,11 +1,14 @@
 package arrays
 
-import "sort"
-
-var failed = []int{}
+import (
+	"fmt"
+	"sort"
+)
 
 // What is the largest subset whose elements are Fibonacci numbers
 func FindFibSubset(nums []int) []int {
+	var failed = []int{}
+
 	if len(nums) < 3 {
 		return failed
 	}
@@ -14,14 +17,15 @@ func FindFibSubset(nums []int) []int {
 
 	sortedNums := make([]int, len(nums))
 	copy(sortedNums, nums)
-	sortedNums = sort.IntSlice(sortedNums)
-
+	sort.Sort(sort.Reverse(sort.IntSlice(sortedNums)))
 	highest := sortedNums[0]
 
 	fibs := map[int]int{
 		1: 1,
 		2: 1,
 	}
+
+	fibSet := map[int]bool{1: true}
 
 	for n := 3; ; {
 		fibN := fibs[n-1] + fibs[n-2]
@@ -31,29 +35,24 @@ func FindFibSubset(nums []int) []int {
 		}
 
 		fibs[n] = fibN
+		fibSet[fibN] = true
 	}
 
-	fibSet := make(map[int]bool)
-	for _, v := range fibs {
-		fibSet[v] = true
-	}
-
-	cur := 0
 	for _, n := range sortedNums {
-		if cur > 2 {
+		if len(largestFibSet) >= 3 {
 			break
 		}
 
-		_, got := fibSet[n]
-		if got {
+		if _, got := fibSet[n]; got {
 			largestFibSet = append(largestFibSet, n)
-			cur++
 		}
 	}
 
 	if len(largestFibSet) < 3 {
 		return failed
 	}
+
+	fmt.Println(fibs)
 
 	return largestFibSet
 }
