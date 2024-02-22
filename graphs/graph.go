@@ -1,21 +1,22 @@
 package graphs
 
 type Graph struct {
-	Nodes map[string][]string
+	Nodes map[int][][2]int
 }
 
-func MakeGraph(edges [][]string) map[string][]string {
-	g := make(map[string][]string)
+func MakeGraph(edges [][3]int) map[int][][2]int {
+	nodes := make(map[int][][2]int)
 
 	for _, edge := range edges {
-		n1, n2 := edge[0], edge[1]
+		src, dest, weight := edge[0], edge[1], edge[2]
 
-		if _, ok := g[n1]; !ok {
-			g[n1] = []string{n2}
+		_, ok := nodes[src]
+		if !ok {
+			nodes[src]  = make([][2]int, 1)
 		}
+		edges := nodes[src]
+		nodes[src] = append(edges, [2]int{dest, weight})
 	}
 
-	return g
+	return nodes
 }
-
-
