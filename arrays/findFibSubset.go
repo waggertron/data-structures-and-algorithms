@@ -13,7 +13,7 @@ func FindFibSubset(nums []int) []int {
 		return failed
 	}
 
-	largestFibSet := make([]int, 3)
+	largestFibSet := make([]int, 0, 3)
 
 	sortedNums := make([]int, len(nums))
 	copy(sortedNums, nums)
@@ -27,7 +27,7 @@ func FindFibSubset(nums []int) []int {
 
 	fibSet := map[int]bool{1: true}
 
-	for n := 3; ; {
+	for n := 3; ; n++ {
 		fibN := fibs[n-1] + fibs[n-2]
 
 		if fibN > highest {
@@ -52,7 +52,10 @@ func FindFibSubset(nums []int) []int {
 		return failed
 	}
 
+	fmt.Println("fibs")
 	fmt.Println(fibs)
+	fmt.Println("fibSet")
+	fmt.Println(fibSet)
 
 	return largestFibSet
 }

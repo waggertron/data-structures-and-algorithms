@@ -22,3 +22,12 @@ func TestFindFibSubsetSimple(t *testing.T) {
 		t.Errorf("\nGot: %v\nWant: %v", got, want)
 	}
 }
+
+func TestFindFibSubset(t *testing.T) {
+	want := []int{8, 5, 3}
+	got := FindFibSubset([]int{1, 1, 5, 3, 8})
+
+	if !reflect.DeepEqual(got, want) {
+		t.Errorf("\nGot: %v\nWant: %v", got, want)
+	}
+}
